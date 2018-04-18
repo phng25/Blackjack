@@ -6,6 +6,7 @@ public class Player {
 	private int money;
 	private int age; 
 	private boolean legal; 
+	private ArrayList<Card> hand;
 	
 	/**
 	 * @return the legal
@@ -20,10 +21,6 @@ public class Player {
 	public void setLegal(boolean legal) {
 		this.legal = legal;
 	}
-
-	private ArrayList<Card> hand;
-	
-
 	
 	public Player(String name)
 	{
@@ -73,11 +70,11 @@ public class Player {
 	 * @param age
 	 * @param hand
 	 */
-	public Player(String name, int money, int age, ArrayList<Card> hand) {
+	public Player(String name, int age) {
 		this.name = name;
-		this.money = money;
+		money = 100;
 		this.age = age;
-		this.hand = hand;
+		hand = new ArrayList<Card>();
 	}
 
 	/**

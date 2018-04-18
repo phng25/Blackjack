@@ -6,6 +6,7 @@ public class Table {
 	private String namePlayer2; 
 	private String cpuName = "CPU";
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private boolean pass;
 	
 	public Table() { 
 		
@@ -14,12 +15,13 @@ public class Table {
 		//newPlayer(); //add players 
 		newPlayer();
 		
+		//bouncer();
 		
+		System.out.println("All players are older than 21. Proceed.");
 	}
 	
 	public void newPlayer () {
 		
-		boolean pass = false;
 		while (!pass) {
 			
 			System.out.println("Player 1 please enter your name > ");
@@ -41,8 +43,12 @@ public class Table {
 			Player cpuPlayer = new Player("CPU", 100, 21, null);
 			players.add(cpuPlayer);
 			
-			security();
+			verify(security());
+		}
 		
+		if (pass)
+		{
+			return;
 		}
 		
 		
@@ -51,7 +57,6 @@ public class Table {
 	
 	public boolean security() {
 		
-		boolean pass;
 		for (Player aPlayer : players)
 		{
 			if (!aPlayer.checkAge(aPlayer.getAge()))
@@ -62,9 +67,17 @@ public class Table {
 				return pass;
 			}
 		}
+		
 		pass = true; 
 		return pass;
 		
+	}
+	
+	public void verify(boolean check) {
+		if (!check)
+		{
+			players.clear();
+		}
 	}
 	
 	public void startGame() {

@@ -12,14 +12,14 @@ public class Table {
 		
 		System.out.println("Welcome to the Casino!");
 		
-		//newPlayer(); //add players 
+		//DO NOT TOUCH - COMPLETE (PN)
 		newPlayer();
 		
-		//bouncer();
-		
+		//DO NOT TOUCH - THIS IS A DEBUG STATEMENT
 		System.out.println("All players are older than 21. Proceed.");
 	}
 	
+	//DO NOT TOUCH - COMPLETE (PN)
 	public void newPlayer () {
 		
 		while (!pass) {
@@ -49,12 +49,10 @@ public class Table {
 		if (pass)
 		{
 			return;
-		}
-		
-		
-		
+		}	
 	}
 	
+	//DO NOT TOUCH - COMPLETE (PN)
 	public boolean security() {
 		
 		for (Player aPlayer : players)
@@ -73,6 +71,7 @@ public class Table {
 		
 	}
 	
+	//DO NOT TOUCH - COMPLETE (PN)
 	public void verify(boolean check) {
 		if (!check)
 		{

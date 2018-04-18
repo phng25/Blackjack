@@ -5,21 +5,38 @@ public class Table {
 	private String namePlayer1; 
 	private String namePlayer2; 
 	private String cpuName = "CPU";
+	private Player player1; 
+	private Player player2;
+	private Player dealer;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private boolean pass;
+
 	
 	public Table() { 
 		
+		
+		
 		System.out.println("Welcome to the Casino!");
 		
-		//DO NOT TOUCH - COMPLETE (PN)
+		//DO NOT TOUCH METHOD - COMPLETE 
 		newPlayer();
 		
-		//DO NOT TOUCH - THIS IS A DEBUG STATEMENT
+		//THIS IS A DEBUG STATEMENT
 		System.out.println("All players are older than 21. Proceed.");
+		
+		Deck aDeck = new Deck(); 
+		Card card = aDeck.gimmeACard();
+				
+
+		dealer.addCard(card);
+		System.out.println("Dealer hand: ");
+		dealer.printHand();
+		
+		
 	}
+
 	
-	//DO NOT TOUCH - COMPLETE (PN)
+	//DO NOT TOUCH METHOD - COMPLETE (PN)
 	public void newPlayer () {
 		
 		while (!pass) {
@@ -28,7 +45,7 @@ public class Table {
 			namePlayer1 = scan.next();
 			System.out.println("Player 1 please enter your age > ");
 			int agePlayer1 = scan.nextInt();
-			Player player1 = new Player(namePlayer1, 100, agePlayer1, null);
+			player1 = new Player(namePlayer1, agePlayer1);
 			players.add(player1);
 			
 			
@@ -36,12 +53,12 @@ public class Table {
 			namePlayer2 = scan.next();
 			System.out.println("Player 2 please enter your age > ");
 			int agePlayer2 = scan.nextInt();
-			Player player2 = new Player(namePlayer2, 100, agePlayer2, null);
+			player2 = new Player(namePlayer2, agePlayer2);
 			players.add(player2);
 			
 			//CPU Player
-			Player cpuPlayer = new Player("CPU", 100, 21, null);
-			players.add(cpuPlayer);
+			dealer = new Player("CPU", 21);
+			players.add(dealer);
 			
 			verify(security());
 		}
@@ -49,10 +66,10 @@ public class Table {
 		if (pass)
 		{
 			return;
-		}	
+		}
 	}
 	
-	//DO NOT TOUCH - COMPLETE (PN)
+	//DO NOT TOUCH METHOD - COMPLETE (PN)
 	public boolean security() {
 		
 		for (Player aPlayer : players)
@@ -71,7 +88,7 @@ public class Table {
 		
 	}
 	
-	//DO NOT TOUCH - COMPLETE (PN)
+	//DO NOT TOUCH METHOD - COMPLETE (PN)
 	public void verify(boolean check) {
 		if (!check)
 		{
@@ -81,6 +98,12 @@ public class Table {
 	
 	public void startGame() {
 		//Trung
+		Deck aDeck = new Deck(); 
+		Card card = aDeck.gimmeACard();
+				
+		dealer.addCard(card);
+		System.out.println("Dealer hand: ");
+		dealer.printHand();	
 	}
 	
 	public static void main(String[] args) {
@@ -88,7 +111,6 @@ public class Table {
 		
 		Table aTable = new Table();
 		Deck aDeck = new Deck(); //create deck object 
-	
 		
 	}
 

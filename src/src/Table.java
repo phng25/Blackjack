@@ -1,75 +1,68 @@
 import java.util.*;
 public class Table {
-
+	
 	private Scanner scan = new Scanner(System.in);
+	private Random rand = new Random();
 	private String namePlayer1; 
 	private String namePlayer2; 
-	private String cpuName = "CPU";
 	private Player player1; 
 	private Player player2;
 	private Player dealer;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private boolean pass;
-
-	public Table() { 
+	
+	public Table() {
 		
-		System.out.println("Welcome to the Casino!");
-		
-		//DO NOT TOUCH METHOD - COMPLETE 
-		newPlayer();
-		
-		//THIS IS A DEBUG STATEMENT
-		System.out.println("All players are older than 21. Proceed.");
-		
-		Deck aDeck = new Deck(); 
-		Card card = aDeck.gimmeACard();
-				
-
-		dealer.addCard(card);
-		System.out.println("Dealer hand: ");
-		dealer.printHand();
-			
+		opening();
+		createDealer();
+		addPlayers();
+		game();
 	}
 
+	//this method creates welcoming statement - complete do not modify
+	public void opening() {
+		System.out.println("Welcome to the Big Baller Casino!");
+		System.out.println("You must be 21 and over to play.");
+		System.out.println();
+	}
 	
-	//DO NOT TOUCH METHOD - COMPLETE (PN)
-	//This method adds the players 
-	public void newPlayer () {
+	//this methods adds player methods - complete do not modify
+	
+	public void addPlayers() {
 		
-		while (!pass) {
-			
-			System.out.println("Player 1 please enter your name > ");
+		while (!pass)
+		{
+			System.out.println("Player 1 please enter your name >");
 			namePlayer1 = scan.next();
-			System.out.println("Player 1 please enter your age > ");
+			System.out.println("Player 1 please enter your nage >");
 			int agePlayer1 = scan.nextInt();
-			player1 = new Player(namePlayer1, agePlayer1);
+			Player player1 = new Player(namePlayer1, agePlayer1);
 			players.add(player1);
 			
-			
-			System.out.println("Player 2 please enter your name > ");
+			System.out.println("Player 2 please enter your name >");
 			namePlayer2 = scan.next();
-			System.out.println("Player 2 please enter your age > ");
+			System.out.println("Player 1 please enter your nage >");
 			int agePlayer2 = scan.nextInt();
-			player2 = new Player(namePlayer2, agePlayer2);
+			Player player2 = new Player(namePlayer2, agePlayer2);
 			players.add(player2);
 			
-			//CPU Player
-			dealer = new Player("CPU", 21);
-			players.add(dealer);
-			
-			verify(security());
+				if (!ageCheck())
+				{
+					players.clear();
+				}
 		}
-		
-		if (pass)
-		{
-			return;
-		}
+
 	}
 	
-	//DO NOT TOUCH METHOD - COMPLETE (PN)
-	//This method checks if all players are over 21
-	public boolean security() {
-		
+	//this method creates the CPU dealer - complete do not modify
+	public void createDealer() {
+		String cpuName = "Dealer";
+		dealer = new Player(cpuName, 99);
+		players.add(dealer);
+	}
+	
+	//this method returns a t/f to allow the game to continue - complete do not modify
+	public boolean ageCheck() {
 		for (Player aPlayer : players)
 		{
 			if (!aPlayer.checkAge(aPlayer.getAge()))
@@ -80,37 +73,72 @@ public class Table {
 				return pass;
 			}
 		}
-		
 		pass = true; 
 		return pass;
-		
+	}
+
+	//this method creates a card - complete do not modify
+	public Card createCard() {
+		Deck aDeck = new Deck();
+		Card card = aDeck.gimmeACard();	
+		return card;
 	}
 	
-	//DO NOT TOUCH METHOD - COMPLETE (PN)
-	//If players are not over 21, the players ArrayList will clear 
-	public void verify(boolean check) {
-		if (!check)
+	//this method will add a hard to a players hand - complete do not modify
+	public void deal(Player thisPlayer)
+	{
+		Card thisCard = createCard();
+		thisPlayer.addCard(thisCard);
+		System.out.print(thisPlayer.getName());
+		System.out.print(" has ");
+		thisCard.printInfo();
+	}
+	
+	//this method will take player bets and add the sum to get the potential winning - complete do not modify
+	public int bet(Player thisPlayer)
+	{
+		int winnings = 0;
+		for (Player aPlayer : players)
 		{
-			players.clear();
+			if (!(aPlayer.getName().equals("Dealer")))
+			{
+				System.out.println(aPlayer.getName() + " how much would you like to bet?");
+				int bet = scan.nextInt();
+				aPlayer.setMoney(aPlayer.getMoney() - bet);
+				winnings = winnings + bet;
+			}
+		}
+		return winnings;
+	}
+	
+	//this method will set the bets for the players - complete do not modify
+	public void setBet()
+	{
+		for (Player aPlayer : players)
+		{
+			{
+				bet(aPlayer);
+			}
 		}
 	}
 	
-	public void startGame() {
-		//Trung
-		Deck aDeck = new Deck(); 
-		Card card = aDeck.gimmeACard();
-				
-		dealer.addCard(card);
-		System.out.println("Dealer hand: ");
-		dealer.printHand();	
+	//this is where the game takes place - complete do not modify
+	public void game()
+	{
+		setBet();
+		
+		for (Player aPlayer : players)
+		{
+			deal(aPlayer);
+		}
+		
+		System.out.println(dealer.getName() + " has a ");
+		dealer.printHand();
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		Table aTable = new Table();
-		Deck aDeck = new Deck(); //create deck object 
-		
+		Table blackjack = new Table();
 	}
 
 }
